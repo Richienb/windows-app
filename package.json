@@ -21,7 +21,14 @@
 		"test": "xo && ava",
 		"install": "node install.js"
 	},
-	"keywords": [],
+	"keywords": [
+		"windows",
+		"test",
+		"app",
+		"exe",
+		"uwp",
+		"automation"
+	],
 	"dependencies": {
 		"appium": "^1.18.2",
 		"css-to-xpath": "^0.1.0",
