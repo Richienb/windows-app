@@ -2,6 +2,9 @@ os: windows
 
 language: node_js
 
+before_script:
+  - powershell -ExecutionPolicy Bypass ./build/enable-developer-mode.ps1
+
 node_js:
   - "14"
   - "12"
