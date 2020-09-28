@@ -2,7 +2,7 @@
 
 Automate Windows applications.
 
-This module automatically tries to install [Windows Application Driver](https://github.com/microsoft/WinAppDriver#readme) when installed.
+This module automatically tries to install [Windows Application Driver](https://github.com/microsoft/WinAppDriver#readme) when installed. You will need to [enable developer mode](https://docs.microsoft.com/en-us/windows/uwp/get-started/enable-your-device-for-development#activate-developer-mode-sideload-apps-and-access-other-developer-features) yourself.
 
 [![NPM Badge](https://nodei.co/npm/windows-app.png)](https://npmjs.com/package/windows-app)
 
