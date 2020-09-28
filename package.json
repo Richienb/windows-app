@@ -1,8 +1,8 @@
 {
-	"name": "the-module",
+	"name": "windows-app",
 	"version": "0.0.0",
-	"description": "My awesome module.",
-	"repository": "https://github.com/Richienb/the-module.git",
+	"description": "Automate Windows applications.",
+	"repository": "https://github.com/Richienb/windows-app.git",
 	"author": "Richie Bendall <richiebendall@gmail.com>",
 	"license": "MIT",
 	"main": "index.js",
@@ -10,15 +10,30 @@
 		"index.js",
 		"index.d.ts"
 	],
+	"os": [
+		"win32"
+	],
 	"engines": {
 		"node": ">=10"
 	},
 	"scripts": {
 		"lint": "xo",
-		"test": "xo && ava"
+		"test": "xo && ava",
+		"install": "node install.js"
 	},
 	"keywords": [],
-	"dependencies": {},
+	"dependencies": {
+		"appium": "^1.18.2",
+		"css-to-xpath": "^0.1.0",
+		"download": "^8.0.0",
+		"get-port": "^5.1.1",
+		"md5-file": "^5.0.0",
+		"path-exists": "^4.0.0",
+		"selenium-appium": "^0.0.15",
+		"selenium-webdriver": "^4.0.0-alpha.7",
+		"sudo-prompt": "^9.2.1",
+		"temp-write": "^4.0.0"
+	},
 	"devDependencies": {
 		"ava": "^3.12.1",
 		"eslint-config-richienb": "^0.4.2",
