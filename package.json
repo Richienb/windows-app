@@ -1,6 +1,6 @@
 {
 	"name": "windows-app",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Automate Windows applications.",
 	"repository": "https://github.com/Richienb/windows-app.git",
 	"author": "Richie Bendall <richiebendall@gmail.com>",
