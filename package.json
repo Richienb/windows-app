@@ -34,7 +34,7 @@
 		"css-to-xpath": "^0.1.0",
 		"download": "^8.0.0",
 		"get-port": "^5.1.1",
-		"md5-file": "^5.0.0",
+		"hasha": "^5.2.2",
 		"path-exists": "^4.0.0",
 		"selenium-appium": "^0.0.15",
 		"selenium-webdriver": "^4.0.0-alpha.7",
