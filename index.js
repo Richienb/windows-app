@@ -29,8 +29,7 @@ module.exports = async (appId, { timeout = 10000 } = {}) => {
 		throwInsteadOfExit: true,
 		loglevel: "error"
 	})
-	const capabilities = windowsAppDriverCapabilities(appId)
-	await driver.startWithCapabilities(capabilities, `http://localhost:${port}/wd/hub`)
+	await driver.startWithCapabilities(windowsAppDriverCapabilities(appId), `http://localhost:${port}/wd/hub`)
 
 	driverActive = true
 
