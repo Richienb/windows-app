@@ -1,8 +1,6 @@
-# windows-app [![Travis CI Build Status](https://img.shields.io/travis/com/Richienb/windows-app/master.svg?style=for-the-badge)](https://travis-ci.com/Richienb/windows-app)
+# windows-app
 
 Automate Windows applications.
-
-[![NPM Badge](https://nodei.co/npm/windows-app.png)](https://npmjs.com/package/windows-app)
 
 ## Install
 
@@ -10,25 +8,25 @@ Automate Windows applications.
 npm install windows-app
 ```
 
-This module automatically tries to install [Windows Application Driver](https://github.com/microsoft/WinAppDriver#readme) when installed. You will need to [enable developer mode](https://docs.microsoft.com/windows/apps/get-started/enable-your-device-for-development#activate-developer-mode-sideload-apps-and-access-other-developer-features) yourself.
+This module vendors [Windows Application Driver](https://github.com/microsoft/WinAppDriver#readme). You will need to [enable developer mode](https://docs.microsoft.com/windows/apps/get-started/enable-your-device-for-development#activate-developer-mode-sideload-apps-and-access-other-developer-features) yourself.
 
 ## Usage
 
 ```js
-const windowsApp = require("windows-app")
+import windowsApp from 'windows-app';
 
-const {select, close} = await windowsApp("Microsoft.WindowsCalculator_8wekyb3d8bbwe!App") // Calculator app
+const {select, close} = await windowsApp('Microsoft.WindowsCalculator_8wekyb3d8bbwe!App'); // Calculator app
 
-await select.name_("One").click()
-await select.name_("Plus").click()
-await select.name_("Two").click()
-await select.name_("Equals").click()
-const result = Number((await select.accessibilityId("CalculatorResults")).getText().replace("Display is", ""))
+await select.name_('One').click();
+await select.name_('Plus').click();
+await select.name_('Two').click();
+await select.name_('Equals').click();
+const result = Number((await select.accessibilityId('CalculatorResults')).getText().replace('Display is', ''));
 
-console.log(`The result of 1 + 2 is ${result}`)
-//=> "The result of 1 + 2 is 3"
+console.log(`The result of 1 + 2 is ${result}`);
+//=> 'The result of 1 + 2 is 3'
 
-await close()
+await close();
 ```
 
 ## API
@@ -58,13 +56,11 @@ The timeout for interactions with elements and application startup in millisecon
 
 #### Return value
 
-##### select(selector)
-
 ##### select.xPath(xPath)
 
 ##### select.class(class_)
 
-##### select<i></i>.id(id)
+##### select.id(id)
 
 ##### select.name_(name)
 
@@ -74,7 +70,7 @@ Select an element in the launched application.
 
 ##### driver
 
-The [`selenium-appium`](https://github.com/react-native-windows/selenium-appium#readme) driver.
+The [`selenium-appium`](https://github.com/react-native-windows/selenium-appium#readme) driver for lower-level testing.
 
 ##### close()
 

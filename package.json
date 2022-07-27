@@ -2,24 +2,27 @@
 	"name": "windows-app",
 	"version": "1.0.1",
 	"description": "Automate Windows applications.",
-	"repository": "https://github.com/Richienb/windows-app.git",
-	"author": "Richie Bendall <richiebendall@gmail.com>",
+	"repository": "Richienb/windows-app",
+	"author": {
+		"name": "Richie Bendall",
+		"email": "richiebendall@gmail.com"
+	},
 	"license": "MIT",
-	"main": "index.js",
+	"type": "module",
+	"exports": "./index.js",
 	"files": [
 		"index.js",
-		"index.d.ts"
+		"index.d.ts",
+		"vendor"
 	],
 	"os": [
 		"win32"
 	],
 	"engines": {
-		"node": ">=10"
+		"node": ">=14.8"
 	},
 	"scripts": {
-		"lint": "xo",
-		"test": "xo && ava",
-		"install": "node install.js"
+		"test": "xo && ava && tsd"
 	},
 	"keywords": [
 		"windows",
@@ -30,23 +33,14 @@
 		"automation"
 	],
 	"dependencies": {
-		"appium": "^1.18.2",
-		"css-to-xpath": "^0.1.0",
-		"download": "^8.0.0",
-		"get-port": "^5.1.1",
-		"hasha": "^5.2.2",
-		"path-exists": "^4.0.0",
-		"selenium-appium": "^0.0.15",
-		"selenium-webdriver": "^4.0.0-alpha.7",
-		"sudo-prompt": "^9.2.1",
-		"temp-write": "^4.0.0"
+		"get-port": "^6.1.2",
+		"p-event": "^5.0.1",
+		"selenium-appium": "^1.0.2",
+		"selenium-webdriver": "^4.3.1"
 	},
 	"devDependencies": {
-		"ava": "^3.12.1",
-		"eslint-config-richienb": "^0.4.2",
-		"xo": "^0.33.1"
-	},
-	"xo": {
-		"extends": "richienb"
+		"ava": "^4.3.1",
+		"tsd": "^0.22.0",
+		"xo": "^0.51.0"
 	}
 }

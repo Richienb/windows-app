@@ -1,52 +1,66 @@
-"use strict"
+import {spawn} from 'node:child_process';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {By2 as by2, driver, windowsAppDriverCapabilities, Config as config} from 'selenium-appium';
+import getPort, {portNumbers} from 'get-port';
+import {pEvent} from 'p-event';
 
-const { By2: by2, driver, windowsAppDriverCapabilities, Config: config } = require("selenium-appium")
-const { main: appium } = require("appium")
-const getPort = require("get-port")
-const cssSelectorToXPath = require("css-to-xpath")
+const startDirectory = path.dirname(fileURLToPath(import.meta.url));
 
-let driverActive = false
+const winAppDriverPath = path.join(startDirectory, 'vendor', 'Windows Application Driver', 'WinAppDriver.exe');
 
-module.exports = async (appId, { timeout = 10000 } = {}) => {
-	if (driverActive) {
-		throw new Error("Driver is currently in use! Close it before using another one.")
+function toString(data) {
+	if (data && data.byteLength > 0 && data.byteLength % 2 === 0 && data[1] === 0) {
+		return data.toString('utf16le');
 	}
 
+	return data.toString();
+}
+
+async function launchAppDriver(port) {
+	const instance = spawn(winAppDriverPath, [port], {cwd: path.dirname(winAppDriverPath)});
+
+	await pEvent(instance.stdout, 'data', stdout => toString(stdout).includes('listening for requests'));
+
+	return instance;
+}
+
+const ports = (function * () {
+	while (true) {
+		yield * portNumbers(1025, 65_535);
+	}
+})();
+
+export default async function windowsApp(appId, {timeout = 10_000} = {}) {
 	if ((!Number.isInteger(timeout) && timeout > 0) || timeout === false) {
-		throw new TypeError("`timeout` was not a positive integer or false!")
+		throw new TypeError('`timeout` was not a positive integer or false!');
 	}
 
 	if (timeout === false) {
-		timeout = 0
+		timeout = 0;
 	}
 
-	config.setWaitForTimeout(timeout)
-	config.setWaitForPageTimeout(timeout)
+	config.setWaitForTimeout(timeout);
+	config.setWaitForPageTimeout(timeout);
 
-	const port = await getPort({ port: 4723 })
-	const server = await appium({
-		port,
-		throwInsteadOfExit: true,
-		loglevel: "error"
-	})
-	await driver.startWithCapabilities(windowsAppDriverCapabilities(appId), `http://localhost:${port}/wd/hub`)
+	const port = await getPort({port: ports});
+	const appDriver = await launchAppDriver(port);
+	await driver.startWithCapabilities(windowsAppDriverCapabilities(appId), `http://localhost:${port}`);
 
-	driverActive = true
-
-	const select = selector => by2.nativeXpath(cssSelectorToXPath(selector), driver)
-	select.xPath = xPath => by2.nativeXpath(xPath, driver)
-	select.class = class_ => by2.nativeClass(class_, driver)
-	select.id = id => by2.nativeId(id, driver)
-	select.name_ = name => by2.nativeName(name, driver)
-	select.accessibilityId = accessibilityId => by2.nativeAccessibilityId(accessibilityId, driver)
+	const select = {
+		xPath: xPath => by2.nativeXpath(xPath, driver),
+		class: class_ => by2.nativeClass(class_, driver),
+		id: id => by2.nativeId(id, driver),
+		name_: name => by2.nativeName(name, driver),
+		accessibilityId: accessibilityId => by2.nativeAccessibilityId(accessibilityId, driver),
+	};
 
 	return {
 		select,
 		driver,
 		async close() {
-			await driver.quit()
-			await server.close()
-			driverActive = false
-		}
-	}
+			await driver.quit();
+			appDriver.kill();
+		},
+	};
 }

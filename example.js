@@ -1,15 +1,14 @@
-const windowsApp = require(".")
+import windowsApp from './index.js';
 
-module.exports = (async () => {
-	const { select, close } = await windowsApp("Microsoft.WindowsCalculator_8wekyb3d8bbwe!App")
+const {select, close} = await windowsApp('Microsoft.WindowsCalculator_8wekyb3d8bbwe!App');
 
-	await select.name_("One").click()
-	await select.name_("Plus").click()
-	await select.name_("Two").click()
-	await select.name_("Equals").click()
-	const result = Number((await select.accessibilityId("CalculatorResults").getText()).replace("Display is", ""))
+await select.name_('One').click();
+await select.name_('Plus').click();
+await select.name_('Two').click();
+await select.name_('Equals').click();
+const rawResults = await select.accessibilityId('CalculatorResults').getText();
+const result = Number(rawResults.replace('Display is', ''));
 
-	console.log(`The result of 1 + 2 is ${result}`)
+console.log(`The result of 1 + 2 is ${result}`);
 
-	await close()
-})()
+await close();
