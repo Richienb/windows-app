@@ -22,7 +22,8 @@
 		"node": ">=14.8"
 	},
 	"scripts": {
-		"test": "xo && ava && tsd"
+		"test": "xo && ava && tsd",
+		"lint": "xo && tsd"
 	},
 	"keywords": [
 		"windows",
