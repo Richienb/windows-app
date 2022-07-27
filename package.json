@@ -1,6 +1,6 @@
 {
 	"name": "windows-app",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"description": "Automate Windows applications.",
 	"repository": "Richienb/windows-app",
 	"author": {
