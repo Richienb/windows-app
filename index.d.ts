@@ -66,7 +66,7 @@ await select.name_('One').click();
 await select.name_('Plus').click();
 await select.name_('Two').click();
 await select.name_('Equals').click();
-const result = Number((await select.accessibilityId('CalculatorResults')).getText().replace('Display is', ''));
+const result = Number((await select.accessibilityId('CalculatorResults').getText()).replace('Display is', ''));
 
 console.log(`The result of 1 + 2 is ${result}`);
 //=> 'The result of 1 + 2 is 3'
